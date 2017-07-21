@@ -19,7 +19,7 @@
   "homepage": "https://github.com/gunjandatta/sp-webpart#readme",
   "dependencies": {
     "gd-sprest": "*",
-    "gd-sprest-react": "^0.5.2",
+    "gd-sprest-react": "*",
     "office-ui-fabric-react": "^4.21.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
