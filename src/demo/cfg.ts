@@ -7,6 +7,16 @@ declare var SP;
 export const Configuration = new Helper.SPConfig({
     // Custom Action
     CustomActionCfg: {
+        Site: [
+            {
+                Description: "Adds a reference to the demo solution library.",
+                Group: "Demo",
+                Location: "ScriptLink",
+                Name: "Demo_Library",
+                Title: "Demo Library",
+                ScriptSrc: "~sitecollection/siteassets/dev/demo.js"
+            }
+        ],
         Web: [
             {
                 Description: "Custom ribbon dropdown for wiki and webpart pages in edit mode.",
@@ -18,7 +28,7 @@ export const Configuration = new Helper.SPConfig({
                 `
 <CommandUIExtension>
     <CommandUIDefinitions>
-        <CommandUIDefinition Location="Ribbon.WebPartPage.Actions.Controls._children">
+        <CommandUIDefinition Location="Ribbon.WebPartPage.Edit.Controls._children">
             <Button
                 Id="DemoAddWebPart"
                 Command="DemoAddWebPart"
@@ -34,7 +44,7 @@ export const Configuration = new Helper.SPConfig({
     <CommandUIHandlers>
         <CommandUIHandler
             Command="DemoAddWebPart"
-            CommandAction="javascript:Demo.WebPart.Configuration.addDemoWebPart();"
+            CommandAction="javascript:Solution.Demo.Configuration.addDemoWebPart();"
         />
     </CommandUIHandlers>
 </CommandUIExtension>
@@ -47,7 +57,7 @@ export const Configuration = new Helper.SPConfig({
     WebPartCfg: [
         {
             FileName: "dev_wpDemo.webpart",
-            Group: "Dev",
+            Group: "Demo",
             XML: `<?xml version="1.0" encoding="utf-8"?>
 <webParts>
     <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
@@ -63,7 +73,7 @@ export const Configuration = new Helper.SPConfig({
                 <property name="Content" type="string">
                     &lt;div id="wp-demo"&gt;&lt;/div&gt;
                     &lt;div id="wp-demoCfg" style="display: none;"&gt;&lt;/div&gt;
-                    &lt;script type="text/javascript"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Demo.WebPart(); }, "demo.js");&lt;/script&gt;
+                    &lt;script type="text/javascript"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Solution.Demo.WebPart(); }, "demo.js");&lt;/script&gt;
                 </property>
             </properties>
         </data>
@@ -98,7 +108,7 @@ Configuration["addDemoWebPart"] = () => {
                 <property name="Content" type="string">
                     &lt;div id="wp-demo"&gt;&lt;/div&gt;
                     &lt;div id="wp-demoCfg" style="display: none;"&gt;&lt;/div&gt;
-                    &lt;script type="text/javascript"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Demo.WebPart(); }, "demo.js");&lt;/script&gt;
+                    &lt;script type="text/javascript"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Solution.Demo.WebPart(); }, "demo.js");&lt;/script&gt;
                 </property>
             </properties>
         </data>

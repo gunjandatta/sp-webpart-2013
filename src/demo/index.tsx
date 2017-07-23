@@ -5,16 +5,14 @@ import { DemoWebPart } from "./wp";
 import { WebPartCfg } from "./wpCfg";
 
 /**
- * WebPart Demo
+ * Demo
  */
-export class WebPartDemo {
+export class Demo {
     // Configuration
     static Configuration = Configuration;
 
-    /**
-     * Constructor
-     */
-    constructor() {
+    // Demo WebPart
+    static WebPart = () => {
         // Create an instance of the webpart
         new WebPart({
             cfgElementId: "wp-demoCfg",

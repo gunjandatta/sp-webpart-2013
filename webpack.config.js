@@ -7,7 +7,7 @@ module.exports = {
     // File(s) to target
     entry: {
         // Demo Project
-        demo: "./index.tsx",
+        demo: "./index.ts",
     },
 
     // Output

@@ -23286,10 +23286,10 @@ exports.FieldUser = FieldUser;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var demo_1 = __webpack_require__(234);
-// Create the global variable
-window["Demo"] = {
+// Create the global variable for the solution
+window["Solution"] = {
     // Demo Webpart
-    WebPart: demo_1.WebPartDemo
+    Demo: demo_1.Demo
 };
 // Let SharePoint know the script has been loaded
 window["SP"].SOD.notifyScriptLoadedAndExecuteWaitingJobs("demo.js");
@@ -23307,26 +23307,26 @@ var cfg_1 = __webpack_require__(666);
 var wp_1 = __webpack_require__(667);
 var wpCfg_1 = __webpack_require__(668);
 /**
- * WebPart Demo
+ * Demo
  */
-var WebPartDemo = (function () {
-    /**
-     * Constructor
-     */
-    function WebPartDemo() {
-        // Create an instance of the webpart
-        new gd_sprest_react_1.WebPart({
-            cfgElementId: "wp-demoCfg",
-            displayElement: wp_1.DemoWebPart,
-            editElement: wpCfg_1.WebPartCfg,
-            targetElementId: "wp-demo"
-        });
+var Demo = (function () {
+    function Demo() {
     }
-    return WebPartDemo;
+    return Demo;
 }());
 // Configuration
-WebPartDemo.Configuration = cfg_1.Configuration;
-exports.WebPartDemo = WebPartDemo;
+Demo.Configuration = cfg_1.Configuration;
+// Demo WebPart
+Demo.WebPart = function () {
+    // Create an instance of the webpart
+    new gd_sprest_react_1.WebPart({
+        cfgElementId: "wp-demoCfg",
+        displayElement: wp_1.DemoWebPart,
+        editElement: wpCfg_1.WebPartCfg,
+        targetElementId: "wp-demo"
+    });
+};
+exports.Demo = Demo;
 
 
 /***/ }),
@@ -64596,6 +64596,16 @@ var gd_sprest_1 = __webpack_require__(26);
 exports.Configuration = new gd_sprest_1.Helper.SPConfig({
     // Custom Action
     CustomActionCfg: {
+        Site: [
+            {
+                Description: "Adds a reference to the demo solution library.",
+                Group: "Demo",
+                Location: "ScriptLink",
+                Name: "Demo_Library",
+                Title: "Demo Library",
+                ScriptSrc: "~sitecollection/siteassets/dev/demo.js"
+            }
+        ],
         Web: [
             {
                 Description: "Custom ribbon dropdown for wiki and webpart pages in edit mode.",
@@ -64603,7 +64613,7 @@ exports.Configuration = new gd_sprest_1.Helper.SPConfig({
                 Location: "CommandUI.Ribbon",
                 Name: "Demo_WebRibbon",
                 Title: "Demo - Web Ribbon",
-                CommandUIExtension: "\n<CommandUIExtension>\n    <CommandUIDefinitions>\n        <CommandUIDefinition Location=\"Ribbon.WebPartPage.Actions.Controls._children\">\n            <Button\n                Id=\"DemoAddWebPart\"\n                Command=\"DemoAddWebPart\"\n                Image32by32=\"/_layouts/15/1033/images/formatmap32x32.png?rev=44\"\n                Image32by32Left=\"-443\"\n                Image32by32Top=\"-375\"\n                LabelText=\"Add Demo\"\n                Description=\"Add the demo webpart\"\n                TemplateAlias=\"o1\"\n            />\n        </CommandUIDefinition>\n    </CommandUIDefinitions>\n    <CommandUIHandlers>\n        <CommandUIHandler\n            Command=\"DemoAddWebPart\"\n            CommandAction=\"javascript:Demo.WebPart.Configuration.addDemoWebPart();\"\n        />\n    </CommandUIHandlers>\n</CommandUIExtension>\n"
+                CommandUIExtension: "\n<CommandUIExtension>\n    <CommandUIDefinitions>\n        <CommandUIDefinition Location=\"Ribbon.WebPartPage.Edit.Controls._children\">\n            <Button\n                Id=\"DemoAddWebPart\"\n                Command=\"DemoAddWebPart\"\n                Image32by32=\"/_layouts/15/1033/images/formatmap32x32.png?rev=44\"\n                Image32by32Left=\"-443\"\n                Image32by32Top=\"-375\"\n                LabelText=\"Add Demo\"\n                Description=\"Add the demo webpart\"\n                TemplateAlias=\"o1\"\n            />\n        </CommandUIDefinition>\n    </CommandUIDefinitions>\n    <CommandUIHandlers>\n        <CommandUIHandler\n            Command=\"DemoAddWebPart\"\n            CommandAction=\"javascript:Solution.Demo.Configuration.addDemoWebPart();\"\n        />\n    </CommandUIHandlers>\n</CommandUIExtension>\n"
             }
         ]
     },
@@ -64611,8 +64621,8 @@ exports.Configuration = new gd_sprest_1.Helper.SPConfig({
     WebPartCfg: [
         {
             FileName: "dev_wpDemo.webpart",
-            Group: "Dev",
-            XML: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<webParts>\n    <webPart xmlns=\"http://schemas.microsoft.com/WebPart/v3\">\n        <metaData>\n            <type name=\"Microsoft.SharePoint.WebPartPages.ScriptEditorWebPart, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c\" />\n            <importErrorMessage>$Resources:core,ImportantErrorMessage;</importErrorMessage>\n        </metaData>\n        <data>\n            <properties>\n                <property name=\"Title\" type=\"string\">Demo Webpart</property>\n                <property name=\"Description\" type=\"string\">Demo webpart from a generated webpart file.</property>\n                <property name=\"ChromeType\" type=\"chrometype\">None</property>\n                <property name=\"Content\" type=\"string\">\n                    &lt;div id=\"wp-demo\"&gt;&lt;/div&gt;\n                    &lt;div id=\"wp-demoCfg\" style=\"display: none;\"&gt;&lt;/div&gt;\n                    &lt;script type=\"text/javascript\"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Demo.WebPart(); }, \"demo.js\");&lt;/script&gt;\n                </property>\n            </properties>\n        </data>\n    </webPart>\n</webParts>"
+            Group: "Demo",
+            XML: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<webParts>\n    <webPart xmlns=\"http://schemas.microsoft.com/WebPart/v3\">\n        <metaData>\n            <type name=\"Microsoft.SharePoint.WebPartPages.ScriptEditorWebPart, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c\" />\n            <importErrorMessage>$Resources:core,ImportantErrorMessage;</importErrorMessage>\n        </metaData>\n        <data>\n            <properties>\n                <property name=\"Title\" type=\"string\">Demo Webpart</property>\n                <property name=\"Description\" type=\"string\">Demo webpart from a generated webpart file.</property>\n                <property name=\"ChromeType\" type=\"chrometype\">None</property>\n                <property name=\"Content\" type=\"string\">\n                    &lt;div id=\"wp-demo\"&gt;&lt;/div&gt;\n                    &lt;div id=\"wp-demoCfg\" style=\"display: none;\"&gt;&lt;/div&gt;\n                    &lt;script type=\"text/javascript\"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Solution.Demo.WebPart(); }, \"demo.js\");&lt;/script&gt;\n                </property>\n            </properties>\n        </data>\n    </webPart>\n</webParts>"
         }
     ]
 });
@@ -64624,7 +64634,7 @@ exports.Configuration["addDemoWebPart"] = function () {
     var page = context.get_web().getFileByServerRelativeUrl(gd_sprest_1.ContextInfo.serverRequestPath);
     var wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
     // Import the webpart
-    var wpDef = wpMgr.importWebPart("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<webParts>\n    <webPart xmlns=\"http://schemas.microsoft.com/WebPart/v3\">\n        <metaData>\n            <type name=\"Microsoft.SharePoint.WebPartPages.ScriptEditorWebPart, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c\" />\n            <importErrorMessage>$Resources:core,ImportantErrorMessage;</importErrorMessage>\n        </metaData>\n        <data>\n            <properties>\n                <property name=\"Title\" type=\"string\">Demo Webpart</property>\n                <property name=\"Description\" type=\"string\">Demo webpart added by a custom ribbon button.</property>\n                <property name=\"ChromeType\" type=\"chrometype\">TitleOnly</property>\n                <property name=\"Content\" type=\"string\">\n                    &lt;div id=\"wp-demo\"&gt;&lt;/div&gt;\n                    &lt;div id=\"wp-demoCfg\" style=\"display: none;\"&gt;&lt;/div&gt;\n                    &lt;script type=\"text/javascript\"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Demo.WebPart(); }, \"demo.js\");&lt;/script&gt;\n                </property>\n            </properties>\n        </data>\n    </webPart>\n</webParts>");
+    var wpDef = wpMgr.importWebPart("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<webParts>\n    <webPart xmlns=\"http://schemas.microsoft.com/WebPart/v3\">\n        <metaData>\n            <type name=\"Microsoft.SharePoint.WebPartPages.ScriptEditorWebPart, Microsoft.SharePoint, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c\" />\n            <importErrorMessage>$Resources:core,ImportantErrorMessage;</importErrorMessage>\n        </metaData>\n        <data>\n            <properties>\n                <property name=\"Title\" type=\"string\">Demo Webpart</property>\n                <property name=\"Description\" type=\"string\">Demo webpart added by a custom ribbon button.</property>\n                <property name=\"ChromeType\" type=\"chrometype\">TitleOnly</property>\n                <property name=\"Content\" type=\"string\">\n                    &lt;div id=\"wp-demo\"&gt;&lt;/div&gt;\n                    &lt;div id=\"wp-demoCfg\" style=\"display: none;\"&gt;&lt;/div&gt;\n                    &lt;script type=\"text/javascript\"&gt;SP.SOD.executeOrDelayUntilScriptLoaded(function() { new Solution.Demo.WebPart(); }, \"demo.js\");&lt;/script&gt;\n                </property>\n            </properties>\n        </data>\n    </webPart>\n</webParts>");
     // Get the first webpart zone on the page
     var wpZone = document.querySelector("#MSOZone");
     wpZone = wpZone ? wpZone.getAttribute("zoneid") : null;

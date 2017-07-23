@@ -1,9 +1,9 @@
-import { WebPartDemo } from "./demo";
+import { Demo } from "./demo";
 
-// Create the global variable
-window["Demo"] = {
+// Create the global variable for the solution
+window["Solution"] = {
     // Demo Webpart
-    WebPart: WebPartDemo
+    Demo
 };
 
 // Let SharePoint know the script has been loaded
